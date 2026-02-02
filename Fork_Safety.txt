@@ -2,7 +2,7 @@
 This file is for working with a forked GitHub repository where:
 
 * origin   -> your fork (Ashokakotresha)
-* upstream -> original repository (djiangtw)
+* upstream -> original repository (Others, Repo from where you Forked)
 ---
 
 1. VERIFY REMOTES (WHO IS WHO)
