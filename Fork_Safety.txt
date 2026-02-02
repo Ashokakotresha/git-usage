@@ -1,0 +1,75 @@
+# GIT FORK SAFETY CHEAT SHEET
+This file is for working with a forked GitHub repository where:
+
+* origin   -> your fork (Ashokakotresha)
+* upstream -> original repository (djiangtw)
+---
+
+1. VERIFY REMOTES (WHO IS WHO)
+
+Command:
+  git remote -v
+
+Expected:
+origin   -> your GitHub repo
+upstream -> original source repo
+
+2. CHECK WHICH REPO YOUR BRANCH TRACKS
+
+Command:
+  git branch -vv
+
+Interpretation:
+  [origin/main]   -> SAFE (your fork)
+  [upstream/main] -> ORIGINAL REPO (be careful)
+
+3. PULL ONLY YOUR CHANGES (DAILY USE)
+Command:
+  git pull origin main
+
+  This pulls commits only from your fork.
+
+4. PROVE YOUR COMMITS ARE NOT IN UPSTREAM
+Commands:
+  git fetch upstream
+  git log upstream/main..HEAD --oneline
+
+Result:
+  * Shows commits that exist ONLY in your fork
+
+Reverse check (what upstream has that you don’t):
+  git log HEAD..upstream/main --oneline
+
+5. SYNC YOUR FORK WITH ORIGINAL REPO (INTENTIONAL)
+Commands:
+  git fetch upstream
+  git merge upstream/main
+
+Alternative (linear history):
+  git rebase upstream/main
+
+6. CHECK WHERE CHANGES CAME FROM (AUDIT TRAIL)
+Command:
+  git reflog
+
+Look for:
+  pull origin   -> changes from your fork
+  pull upstream -> changes from original repo
+
+7. OPTIONAL SAFETY LOCK (RECOMMENDED)
+Prevent accidental pushes to upstream:
+  git remote set-url --push upstream DISABLED
+
+  Now pushing to upstream will fail by default.
+
+8. QUICK HEALTH CHECK (FASTEST)
+Commands:
+  git status
+  git branch -vv
+
+## MENTAL MODEL (REMEMBER THIS)
+
+* Pull from origin   -> your work
+* Fetch/Merge upstream -> original project
+* Never push to upstream
+
